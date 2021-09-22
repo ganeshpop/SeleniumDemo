@@ -23,10 +23,12 @@ public class CaptureScreenshotsTest {
         Iterator<String> iterator = windowHandles.iterator();
         iterator.next();
         String subWindowId = iterator.next();
+        CaptureScreenshot.capture(webDriver, "HomePage");
         try {
             webDriver.switchTo().window(subWindowId);
         } catch (NoSuchWindowException e){
             System.out.println("No Window Found");
+            CaptureScreenshot.capture(webDriver, "Error");
         }
         CaptureScreenshot.capture(webDriver, "LoginPage");
         webDriver.quit();
