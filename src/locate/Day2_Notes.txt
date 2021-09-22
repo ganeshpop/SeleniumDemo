@@ -1,0 +1,351 @@
+1.Changing DropDown Values + selectByIndex + selectByValue + selectByVisibleText + isMultiple
+2.XPath and CSS Selectors + text() function
+3.Explicit Wait + Implicit Wait + Synchronization
+4.Handling Ajax Suggestion Box
+5.Simulating Mouse Operation
+6.Handling Window Navigation/Tabs
+7.Capturing Screenshots
+8.Handling Frames
+
+1.Changing DropDown Values + selectByIndex + selectByValue + selectByVisibleText + isMultiple
+=============================================================================================
+1.dropdown is referred by select tag and options in the dropdown by option tag
+we can select or change dropdown value in 3 ways
+1.select by value [ value attribute in option tag]
+2.select by index [ index starts from 0]
+3.select by visible text [ options listed on the screen]
+
+1.be able change to dropdown values
+2.be able to verify selected dropdown values - which is by default or changed selection
+3.be able to verify whether dropdown type is multiselect or not
+
+Identifying elements by xpath and css selectors
+===============================================
+When we identify using id,name,class,tagname,linkText,partiallinkText 
+
+Attribute based locator strategies - id,name,class
+Structured Based Locator strategies - xpath, css
+
+Any element which is not identifiable via id, name or class can be identified via xpath and css
+
+To identify xpath and css selector element address - Inspect Element > Highlights HTML element which is under inspection > Right Click and Copy > Copy Xpath - for css selectors Copy > Copy selector
+
+It is essential for you to know how to build xpaths and css selector addresses
+
+Guidelines for building xpath
+=============================
+1.absolute xpath is indicated by single forward slash / [ address from the root node]
+2.relative xpath is indicated by double forward slash // [ address from any where]
+[address needs to be compact]
+3.parent and child separator - Single forward /
+4.Sibling - tagname[index starting with 1]
+Sibling relationship
+div <--- div[1]
+div <--- div[2]
+div  <-- div[3]
+5.Attribute filter - identifying index position might not be the best approach - attribute filter is a better approach
+tagname[@attributename='attributevalue']
+table[@id='calinputtable']
+/html/body/div[3]/div[1]/div[5]/table[@id='calinputtable']/tbody/tr[1]/td[2]/input
+
+Example
+xpath address of age textbox = //*[@id="cage"]
+/html/body/div[3]/div[1]/div[5]/table[1]/tbody/tr[1]/td[2]/input
+css selector address of age Textbox #cage
+3.Now there are 2 types of relationships - parent child relationship and another sibling relationship
+html has 2 nodes embedded - head and body
+html is parent to head and body 
+head and body are child to html
+head and body are siblings - because they are at the same level
+parent and child separator - /
+for absolute xpath for Age Label 
+/parenttag/childtag
+/html/body/
+Sibling relationship
+div <--- div[1]
+div <--- div[2]
+div  <-- div[3]
+
+/html/body/div[3]/div[1]/div[5]/table[1]/tbody/tr[1]/td[1]
+/html/body/div[3]/div[1]/div[5]/table[1]/tbody/tr[1]/td[1]
+
+
+3.if i have identify an element which does have any attribute information, i will use xpath
+lets take an example of Age Label 
+In such situations, you need to first find out the immediate parent element which has either id,name or class attribute
+
+//tagname[@attributename=attributevalue]
+
+
+Relative Address of Age Label becomes 
+//table[@id='calinputtable']/tbody/tr[1]/td[2]/input
+
+Now, because id is enough to identify uniquely the element so we can ignore the tagname and replace with wild character * - Regardless of tagname - id is sufficient to Age Label
+//*[@id='calinputtable']/tbody/tr[1]/td[1]
+
+//*[@id="calinputtable"]/tbody/tr[1]/td[1]
+
+//div[@class='panel2']/table[1]/tbody/tr[1]/td[1]
+
+1.Relative Xpath to find all the elements in a web page
+//*
+
+2.Relative Xpath to find all table elements in a web page
+//table
+
+3.Relative xpath to find all table elements which has name attribute
+//table[@name]
+
+4.Relative xpath to find all the table element which has id = calinputtable
+//table[@id='calinputtable']
+
+5.Relative xpath to find all elements that has id attribute 
+//*[@id]
+
+If i want to convert of attribute based search into xpath
+1.id="cage"
+//*[@id='cage']
+name="cage"
+//*[@name='cage']
+class="inhalf"
+//*[@class='inhalf']
+class=cinfoT
+//*[@class='cinfoT']
+
+
+
+
+Pattern match in xpath 
+======================
+Perform a search on the attribute value using below pattern match 
+1.starts-with
+2.contains
+3.ends-with
+
+Identify all elements having attribute id starting with c
+Exact Match  = //*[@id='c']
+Pattern Match = //*[starts-with(@id,'c')]
+
+Identify all elements having attribute name containing height
+Exact Match = //*[@name='height']
+Pattern Match = //*[contains(@name,'height')]
+
+Identify all elements having attribute id ending with weight
+Exact Match = //*[@id='weight']
+Pattern Match = //*[ends-with(@id,'weight')]
+
+InvalidSelectorException happens when the address is specified in the right format
+
+To Kill the chromedriver.exe Processes
+======================================
+taskkill /f /im explorer.exe
+taskkill /F /IM chromedriver.exe 
+
+Identifying elements by css selectors + Pattern match on css selectors
+=======================================================================
+1.absolute xpath - starts with single forward slash
+2.relative xpath - starts with double forward slash
+3.parent child separater - single forward slash
+4.sibling - tagname[ index starting with 1]
+5.attribute filter tagname[@attributename=attributevalue]
+6.If the attribute filter is sufficient to identify the element tagname can be ignored and wild card character can be used instead
+pattern match 
+//*[starts-with(@attributename,'pattern match')]
+//*[contains(@attributename,'pattern match')]
+7. //tagname//tagname [/ immediate parent child and // can skip some tags in between]
+
+ 
+Css Selectors
+Relative Path - it starts directly from tagname
+parent child separater - > (greater than)
+parent tag > child tag
+example
+html > body
+
+sibling relationship 
+tagname:nth-child(index starting with 1)
+Example of sibling relationship 
+xpath vs css
+div[1] ~ div:nth-child(1)
+div[2] ~ div:nth-child(2)
+div[3] ~ div:nth-child(3)
+
+Attribute filter in css
+xpath [@attributename=attributevalue]
+css = [attributename=attributevalue]
+
+xpath = //*[@id='calinputtable']/tbody/tr[1]/td[1]
+css = *[id='calinputtable] > tbody > tr:nth-child(1) > td:nth-child(1)
+
+apart from these guidelines - there are 2 more guidelines which apply only to css
+id=calinputtable 
+#idvalue
+#calinputtable
+# in css selector - indicates we are identifying the element by id attribute
+
+age textbox
+id=cage
+#cage [css selector apprach for age textbox]
+
+identifying by class attribute
+xpath //*[@class='cinfoT']
+css  *[class='cinfoT']
+
+.cinfoT
+. in css selector - indicates we are identifying element by attribute class
+.classvalue
+
+//table[@id='calinputtable']/tbody/tr[1]/td[1]
+table#calinputtable > tbody > tr:nth-child(1) > td:nth-child(1)
+#calinputtable > tbody > tr:nth-child(1) > td:nth-child(1)
+
+tagname#idvalue.classvalue[attributename=attributevalue] > tagname:nth-child(n)
+
+#calinputtable > tbody > tr:nth-child(1) > td:nth-child(1)
+
+Summary for css selectors
+=========================
+1.relative path for css selectors starts with tagname
+2.parent to child relationship separator is >
+3.sibling relationship tagname:nth-child(n)
+4.id can be indicated by #idvalue
+5.class can be denoted by .classvalue
+6.attribute filter can be applied tagname[attributename=attributevalue]
+7.if we want skip some intermediate steps space instead of >
+
+parenttag > child tag 
+immediate parent child relationship 
+tagname childtagname --> some intermediate tags in between
+8.pattern match 
+starts-with ~  ^
+contains ~ *
+ends-with $
+
+Identify all elements having attribute id starting with c
+Exact Match  = //*[@id='c']
+Pattern Match = //*[starts-with(@id,'c')]
+
+css Exact Match = *[id='c']
+css Pattern Match *[id^='c']
+
+Identify all elements having attribute name containing height
+Exact Match = //*[@name='height']
+Pattern Match = //*[contains(@name,'height')]
+
+css Exact Match *[name='height']
+css Pattern match *[name*='height']
+
+Identify all elements having attribute id ending with weight
+Exact Match = //*[@id='weight']
+Pattern Match = //*[ends-with(@id,'weight')]
+css Exact Match *[name='weight']
+css Pattern Match *[name$='weight']
+
+
+Explicit Wait + Implicit Wait + Synchronization
+===============================================
+What is Synchronization?
+Synchronizing code execution speed with application execution speed
+
+Lets take couple of examples
+============================
+Login functionality
+1. Launch application and navigating to url
+2.Enter user id and password 
+3.Click on Login button - Navigates to Home page ---> Till step 3 all of them in one page <- when you submit, it takes some time to load the page - only after the page is completed loaded, we can enter data in HomePage
+4.Enter data in one filed in Home Page
+Between step  3 & 4 - we need to synchronize so that it does not throw exception when the element is not visible because the page is completed loaded
+
+Step 3 and 4 --> There is a pause required
+
+Code Execution is faster compared to application execution speed - thus if before the page is loaded, if we try to access the element in step 4 - it will throw error
+synchronization is done to eliminate the error and be able to smoothly complete execution
+
+When i use Thread.sleep - it is hardcoded wait - which does not ensure the element is accessible or the page is fully loaded
+
+how to make sure that the element is present to be accessed
+here you apply Explicit wait
+Identifies the elements -> performs a check on the property element -> performs operations
+on this property check of the element, we apply a wait with maximum timeout
+
+wait = 30 sec
+identify element which appears in the home page 
+property check - check for the presence of the element
+
+page is loaded - i dont check element presence - 
+it could be for the title of the page
+property check on the title of the page to check whether page is loaded 
+
+For example,
+Insertion of a record in a database table
+after the insertion is complete - only the record id is provided 
+insert operation status completion is provided progress bar or status bar is providing a status
+only then, it allows for update or delete operation not before 
+
+We are making sure the previous step is completely fully before the next step can be executed 
+
+Implicit wait - is not a good practice - flat timeout time applied to all statement operations
+and this is specified once after the driver object is set. once it is applied, it applies to all the statements and till encounters driver.close()
+
+Simulating Mouse Operation
+==========================
+This is achieved Actions class
+Lets apply itself on the same demo.opencart.com
+If we perform mouse operations on Printer Element - 2 mouse operations - moveToElement followed by Click on the element
+Handling Ajax Suggestion Box
+============================
+
+Handling Window Navigation/Tabs
+===============================
+1. What is the difference between navigation between windows and navigation between pages?
+navigating between pages can be done in the same window - how it is done?
+by redirecting the page
+navigation between windows - navigation between 2 windows or window tabs
+How do we identify a window uniquely - it is done via window handle - each window id - we can get a unique window handle which helps us to identify it uniquely
+Objective is to be able to perform operations on both the windows or multiple windows
+
+1.
+Navigate to citibank internet banking
+https://www.online.citibank.co.in/personal-banking/internet-banking
+2.Click on Login Now
+3.Enter User ID [Operation on new window /sub window]
+4.Close the subwindow
+5.Go back the Main window 
+6.Perform operation - Click on Insurance
+
+frames deprecated
+https://developer.mozilla.org/en-US/docs/Web/HTML/Element/frameset
+
+//*[@id='cactivity']/option[1] <--- first element in the dropdown
+//*[@id='cactivity']/option[2]
+//*[@id='cactivity']/option[@value='1.55'] <--- value attribute filter
+//*[@id='cactivity']/option[text()='Extra Active: very intense exercise daily, or physical job']
+
+pattern match
+//*[@id='cactivity']/option[contains(text(),'Active')]
+
+//*[text()='Sign in']
+
+JavascriptExecutor je = (JavascriptExecutor) driver;
+//Identify the WebElement which will appear after scrolling down
+WebElement element = driver.findElement(By.xpath(".//*[@id='mCSB_3_container']/p[3]"));
+je.executeScript("arguments[0].scrollIntoView(true);",element);
+ 
+JavascriptExecutor je = (JavascriptExecutor) driver;
+je.executeScript("arguments[0].scrollIntoView(true);",element);
+
+
+
+
+
+
+
+
+9.Handling Alert Popups
+10.Install Testng
+11.Understand TestNG Annotations
+12.Invoking JavaScript
+13.TestNG with Data Driven Testing
+14.Object Repository Maintenance
+15.Configuration Settings
+16.Extent Reporting
