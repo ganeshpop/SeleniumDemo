@@ -1,4 +1,4 @@
-package locate;
+package exception;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.JavascriptExecutor;
@@ -8,14 +8,14 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class HandleAlertPopups {
 	public static WebDriver webDriver = null;
 	public static void main(String[] args) throws InterruptedException {
-		JavascriptExecutor js = null;
-		Alert alert = null;
-		String alertMessage = null;
+		JavascriptExecutor js;
+		Alert alert;
+		String alertMessage;
 		System.setProperty("webdriver.chrome.driver","./drivers/chromedriver.exe");
 		 webDriver = new ChromeDriver();
 		 webDriver.get("https://www.google.co.in/");
 		 webDriver.manage().window().maximize();
-		 //Invoke a JavaScript alert to popUp an information Alert
+		 //Invoke a JavaScript alert to pop up an information Alert
 		 //for this we use an interface named JavascriptExecutor
 		 //when we cast the driver object with JavascriptExecutor, it exposes the
 		 //method executeScript which is used for executing or invoking javaScripts
@@ -42,7 +42,7 @@ public class HandleAlertPopups {
 	     alert = webDriver.switchTo().alert();
 		 alertMessage = alert.getText();
 		 Thread.sleep(3000);
-		 alert.dismiss();; //Click on Cancel button
+		 alert.dismiss();//Click on Cancel button
 		 if(alertMessage.equals("This is an information Message")){
 			 System.out.println("Alert Message - Match Found");
 		 }
