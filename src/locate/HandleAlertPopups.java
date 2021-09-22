@@ -15,10 +15,10 @@ public class HandleAlertPopups {
 		 webDriver = new ChromeDriver();
 		 webDriver.get("https://www.google.co.in/");
 		 webDriver.manage().window().maximize();
-		 //Invoke a JavaScript alert to popup an information Alert
+		 //Invoke a JavaScript alert to popUp an information Alert
 		 //for this we use an interface named JavascriptExecutor
 		 //when we cast the driver object with JavascriptExecutor, it exposes the
-		 //method executeScript which is used for executing or invoking javascripts
+		 //method executeScript which is used for executing or invoking javaScripts
 		 js = (JavascriptExecutor) webDriver;
 		 js.executeScript("alert('This is an information Message');");
 		 //Switch to the Alert is necessary to handle the alert - otherwise we cannot perform any operation
