@@ -18,12 +18,12 @@ public class HandlingFrames {
 		WebElement frameElement = webDriver.findElement(By.className("demo-frame"));
 
 		webDriver.switchTo().frame(frameElement);
-		//driver.switchTo().frame(1); //NoSuchFrameException
+//		webDriver.switchTo().frame(1); //NoSuchFrameException
 		WebElement source = webDriver.findElement(By.id("draggable"));
 		WebElement destination = webDriver.findElement(By.id("droppable"));
+		Thread.sleep(2000);
 		//Scroll the destination element into view
 		JavascriptExecutor js  = (JavascriptExecutor) webDriver;
-		js.executeScript("arguments[0].scrollIntoView();",destination);
 		Actions actions = new Actions(webDriver);
 		actions.dragAndDrop(source, destination).build().perform();
 		if(destination.getText().equals("Dropped!")){
@@ -31,7 +31,12 @@ public class HandlingFrames {
 		}
 		else
 			System.out.println("Drop was not successful");
-		js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+		Thread.sleep(2000);
+//		js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+		webDriver.switchTo().defaultContent();
+		js.executeScript("arguments[0].scrollIntoView();", webDriver.findElement(By.cssSelector("#content > div.view-source > a")));
+		Thread.sleep(2000);
+		webDriver.close();
 		//js.executeScript("window.scrollTo(0, 300)");
 
 	}

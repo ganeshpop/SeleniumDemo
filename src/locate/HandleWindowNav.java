@@ -1,4 +1,4 @@
-package WebDriverAdv;
+package locate;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -30,11 +30,11 @@ public class HandleWindowNav {
 		 System.out.println("Number of Open Windows = " + winids.size());
 		 Iterator<String> iter = winids.iterator();
 		 //Get the 2 winids
-		 String mainWindowID = iter.next().toString();
-		 String subWindowID = iter.next().toString();
+		 String mainWindowID = iter.next();
+		 String subWindowID = iter.next();
 		 System.out.println("mainWindowID = " + mainWindowID);
 		 System.out.println("subWindowID = " + subWindowID);
-		 //switch to the subwindow 
+		 //switch to the subwindow
 		 driver.switchTo().window(subWindowID);
 		 WebDriverWait wait = new WebDriverWait(driver,30);
 		 try{
@@ -43,13 +43,13 @@ public class HandleWindowNav {
 		 User_Id.sendKeys("Selenium");
 		 Thread.sleep(3000);
 		 driver.close(); //Close the subwindow
-		 //when you have frames in a window 
-		 driver.switchTo().defaultContent(); 
+		 //when you have frames in a window
+		 driver.switchTo().defaultContent();
 		 //driver.switchTo().window(mainWindowID);
-		 //identify the Insurance in Main Window 
+		 //identify the Insurance in Main Window
 		 driver.findElement(By.id("topMnuinsurance")).click();
 		 }catch(NoSuchElementException e){
-			 
+			e.printStackTrace();
 		 }
 	}
 }
