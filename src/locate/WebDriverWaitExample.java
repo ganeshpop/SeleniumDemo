@@ -1,4 +1,4 @@
-package WebDriverAdv;
+package locate;
 
 import java.util.concurrent.TimeUnit;
 

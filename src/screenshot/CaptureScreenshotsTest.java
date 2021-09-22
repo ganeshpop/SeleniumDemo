@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchWindowException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -20,10 +21,15 @@ public class CaptureScreenshotsTest {
         webDriver.findElement(By.xpath("//*[@id=\"main\"]/div[1]/div[2]/a")).click(); //Login Button
         Set<String> windowHandles = webDriver.getWindowHandles();
         Iterator<String> iterator = windowHandles.iterator();
-        String mainWindowId = iterator.next();
+        iterator.next();
         String subWindowId = iterator.next();
-        webDriver.switchTo().window(subWindowId);
+        try {
+            webDriver.switchTo().window(subWindowId);
+        } catch (NoSuchWindowException e){
+            System.out.println("No Window Found");
+        }
         CaptureScreenshot.capture(webDriver, "LoginPage");
+        webDriver.quit();
     }
 
 }
