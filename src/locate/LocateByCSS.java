@@ -10,14 +10,16 @@ public class LocateByCSS {
 
     public static void main(String[] args) throws InterruptedException {
         System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver.exe");
+
         webDriver = new ChromeDriver();
         webDriver.get("https://www.calculator.net/calorie-calculator.html");
         webDriver.manage().window().maximize();
         WebElement AgeLabelByRelCss = webDriver.findElement(By.cssSelector("#calinputtable > tbody > tr:nth-child(1) > td:nth-child(1)"));
         System.out.println("AgeLabel by Rel Css = " + AgeLabelByRelCss.getText());
         Thread.sleep(2000);
+        System.out.println(webDriver.findElement(By.tagName("div")).getText());
         webDriver.findElement(By.cssSelector(".panel > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(1) > input:nth-child(2)")).click();
-        Thread.sleep(2000);
+//        Thread.sleep(2000);
 		webDriver.close();
     }
 }

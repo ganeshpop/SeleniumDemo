@@ -10,7 +10,7 @@ public class LaunchBrowsers {
     static String browser = "chrome";
     static WebDriver webDriver;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         switch (browser) {
             case "chrome":
                 System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver.exe");
@@ -34,6 +34,7 @@ public class LaunchBrowsers {
         }
         webDriver.get("https://www.calculator.net/bmi-calculator.html");
         System.out.println("Web Driver Title: " + webDriver.getTitle());
+        Thread.sleep(2000);
         webDriver.close();
 
 

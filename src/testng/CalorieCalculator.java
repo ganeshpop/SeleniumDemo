@@ -11,13 +11,13 @@ import org.testng.annotations.Test;
 
 public class CalorieCalculator {
     WebDriver webDriver;
+
     @BeforeMethod
     public void openBrowser() {
         System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver.exe");
         webDriver = new ChromeDriver();
         webDriver.get("https://www.calculator.net/calorie-calculator.html");
         webDriver.manage().window().maximize();
-
     }
     @Test(priority=1)
     public void enterCalorieDetails() throws InterruptedException {
@@ -33,9 +33,8 @@ public class CalorieCalculator {
         Select dropDown = new Select(webDriver.findElement(By.id("cactivity")));
         dropDown.selectByVisibleText("Extra Active: very intense exercise daily, or physical job");
         Thread.sleep(2000);
-        webDriver.findElement(By.cssSelector("#content > div.panel2 > table:nth-child(4) > tbody > tr:nth-child(3) > td:nth-child(2) > input[type=image]:nth-child(2)")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"content\"]/div[5]/table[4]/tbody/tr[3]/td[2]/input[2]")).click();
         Thread.sleep(3000);
-
     }
 
     @AfterMethod
